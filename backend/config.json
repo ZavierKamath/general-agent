@@ -1,0 +1,55 @@
+{
+    "type": "Settings",
+    "audio": {
+        "input": {
+            "encoding": "linear16",
+            "sample_rate": 16000
+        },
+        "output": {
+            "encoding": "linear16",
+            "sample_rate": 16000,
+            "container": "none"
+        }
+    },
+    "agent": {
+        "language": "en",
+        "listen": {
+            "provider": {
+                "type": "deepgram",
+                "model": "nova-3",
+                "keyterms": ["hello", "help"]
+            }
+        },
+        "think": {
+            "provider": {
+                "type": "open_ai",
+                "model": "gpt-4o-mini",
+                "temperature": 0.7
+            },
+            "prompt": "You are a helpful general-purpose assistant. Have a natural back-and-forth conversation, speak concisely, and directly answer the user's questions. When useful for accurate answers, call available tools.",
+            "functions": [
+                {
+                    "name": "calculate",
+                    "description": "Safely evaluate a basic math expression and return the numeric result.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "expression": {
+                                "type": "string",
+                                "description": "Math expression, supports + - * / % ** and parentheses. '^' is allowed as exponent. Put spaces between numbers and operators."
+                            }
+                        },
+                        "required": ["expression"]
+                    }
+                }
+            ]
+        },
+        "speak": {
+            "provider": {
+                "type": "deepgram",
+                "model": "aura-2-helena-en"
+            }
+        },
+        "greeting": "Hi! How can I help you today?"
+    }
+}
