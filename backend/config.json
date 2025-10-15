@@ -43,68 +43,35 @@
                     }
                 },
                 {
-                    "name": "get_accounts",
-                    "description": "Get all connected bank accounts from Teller API.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {},
-                        "required": []
-                    }
-                },
-                {
-                    "name": "get_account_info",
-                    "description": "Get detailed information about a specific bank account including balances.",
+                    "name": "get_financial_info",
+                    "description": "Fetch balances or transactions from Plaid across selected accounts. For transactions, saves results to backend/tmp and returns the file path.",
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "account_id": {
-                                "type": "string",
-                                "description": "The account ID to get information for."
-                            }
-                        },
-                        "required": ["account_id"]
-                    }
-                },
-                {
-                    "name": "get_account_balance",
-                    "description": "Get current balance for a specific bank account.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "type": "string",
-                                "description": "The account ID to get balance for."
-                            }
-                        },
-                        "required": ["account_id"]
-                    }
-                },
-                {
-                    "name": "get_recent_transactions",
-                    "description": "Get recent transactions for a specific bank account.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {
-                            "account_id": {
-                                "type": "string",
-                                "description": "The account ID to get transactions for."
+                            "account_names": {
+                                "description": "Which accounts to include. Use 'all' or a list of names: Discover, Huntington, Ally, PNC (case-insensitive).",
+                                "oneOf": [
+                                    { "type": "string" },
+                                    { "type": "array", "items": { "type": "string" }, "minItems": 1, "uniqueItems": true }
+                                ]
                             },
-                            "limit": {
-                                "type": "integer",
-                                "description": "Number of transactions to return (default: 10, max: 100).",
-                                "default": 10
+                            "request_type": {
+                                "type": "string",
+                                "enum": ["balance", "transactions"],
+                                "description": "Choose 'balance' for a summary string or 'transactions' to export a JSON file path."
+                            },
+                            "start_date": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Optional YYYY-MM-DD start date for transactions. Defaults to 90 days ago."
+                            },
+                            "end_date": {
+                                "type": "string",
+                                "format": "date",
+                                "description": "Optional YYYY-MM-DD end date for transactions. Defaults to today."
                             }
                         },
-                        "required": ["account_id"]
-                    }
-                },
-                {
-                    "name": "get_all_balances",
-                    "description": "Get balances for all connected bank accounts.",
-                    "parameters": {
-                        "type": "object",
-                        "properties": {},
-                        "required": []
+                        "required": ["account_names", "request_type"]
                     }
                 }
             ]
