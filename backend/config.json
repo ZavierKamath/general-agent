@@ -41,6 +41,71 @@
                         },
                         "required": ["expression"]
                     }
+                },
+                {
+                    "name": "get_accounts",
+                    "description": "Get all connected bank accounts from Teller API.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {},
+                        "required": []
+                    }
+                },
+                {
+                    "name": "get_account_info",
+                    "description": "Get detailed information about a specific bank account including balances.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "type": "string",
+                                "description": "The account ID to get information for."
+                            }
+                        },
+                        "required": ["account_id"]
+                    }
+                },
+                {
+                    "name": "get_account_balance",
+                    "description": "Get current balance for a specific bank account.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "type": "string",
+                                "description": "The account ID to get balance for."
+                            }
+                        },
+                        "required": ["account_id"]
+                    }
+                },
+                {
+                    "name": "get_recent_transactions",
+                    "description": "Get recent transactions for a specific bank account.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {
+                            "account_id": {
+                                "type": "string",
+                                "description": "The account ID to get transactions for."
+                            },
+                            "limit": {
+                                "type": "integer",
+                                "description": "Number of transactions to return (default: 10, max: 100).",
+                                "default": 10
+                            }
+                        },
+                        "required": ["account_id"]
+                    }
+                },
+                {
+                    "name": "get_all_balances",
+                    "description": "Get balances for all connected bank accounts.",
+                    "parameters": {
+                        "type": "object",
+                        "properties": {},
+                        "required": []
+                    }
                 }
             ]
         },

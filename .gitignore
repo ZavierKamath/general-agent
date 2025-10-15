@@ -61,3 +61,10 @@ coverage/
 *.swo
 .DS_Store
 Thumbs.db
+
+# Teller folder
+teller/
+tmp/
+tests/
+plaid_link_setup/
+prompts/
